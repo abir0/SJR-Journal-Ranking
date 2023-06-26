@@ -3,6 +3,43 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
+subject_areas = {
+    1100: "Agricultural and Biological Sciences",
+    1200: "Arts and Humanities",
+    1300: "Biochemistry, Genetics and Molecular Biology",
+    1400: "Business, Management and Accounting",
+    1500: "Chemical Engineering",
+    1600: "Chemistry",
+    1700: "Computer Science",
+    1800: "Decision Sciences",
+    3500: "Dentistry",
+    1900: "Earth and Planetary Sciences",
+    2000: "Economics, Econometrics and Finance",
+    2100: "Energy",
+    2200: "Engineering",
+    2300: "Environmental Science",
+    3600: "Health Professions",
+    2400: "Immunology and Microbiology",
+    2500: "Materials Science",
+    2600: "Mathematics",
+    2700: "Medicine",
+    1000: "Multidisciplinary",
+    2800: "Neuroscience",
+    2900: "Nursing",
+    3000: "Pharmacology, Toxicology and Pharmaceutics",
+    3100: "Physics and Astronomy",
+    3200: "Psychology",
+    3300: "Social Sciences",
+    3400: "Veterinary",
+}
+
+params = {
+    "wos": "true",
+    "type": "j",
+    "year": "2022",
+}
+
+
 def parse_best_categories(text):
     categories = text.split(":")[1][:-1].split(";")
     return [category.strip() for category in categories]
@@ -11,14 +48,20 @@ def parse_best_categories(text):
 def get_row_data(row):
     cells = row.find_elements(By.TAG_NAME, "td")
     contents = {}
-    contents["Overall Rank"] = cells[0].text
+    contents["Rank"] = cells[0].text
     contents["Title"] = cells[1].text
-    contents["URL"] = cells[1].find_element(By.TAG_NAME, "a").get_attribute("href")
     contents["Open Access"] = cells[1].find_elements(By.TAG_NAME, "img") != []
-    contents["SJR index"] = cells[3].text.split()[0]
-    contents["Best Quartile"] = cells[3].text.split()[1]
-    contents["Best Categories"] = parse_best_categories(
-        cells[3].find_element(By.TAG_NAME, "span").get_attribute("title"))
+    contents["URL"] = cells[1].find_element(By.TAG_NAME, "a").get_attribute("href") + "/"
+    cell_3 = cells[3].text.split()
+    if cell_3 != []:
+        contents["SJR index"] = cell_3[0]
+        contents["Best Quartile"] = cell_3[1]
+        contents["Best Categories"] = parse_best_categories(
+            cells[3].find_element(By.TAG_NAME, "span").get_attribute("title"))
+    else:
+        contents["SJR index"] = None
+        contents["Best Quartile"] = None
+        contents["Best Categories"] = None
     contents["H index"] = cells[4].text
     contents["Total Docs."] = cells[5].text
     contents["Total Docs. 3y"] = cells[6].text
@@ -31,37 +74,50 @@ def get_row_data(row):
     return contents
 
 
+def get_url_with_params(url, params):
+    return url + "?" + "&".join([key + "=" + value for key, value in params.items()])
+
+
 def main():
-    URL = "https://www.scimagojr.com/journalrank.php?wos=true&type=j&year=2022&page={}"
+    URL = "https://www.scimagojr.com/journalrank.php"
 
     driver = webdriver.Chrome()
 
-    journal_data = []
+    # Iterate over the subject areas
+    for subject_area_id, subject_area_name in subject_areas.items():
+        journal_data = []
+        params["area"] = str(subject_area_id)
+        next_page_exists = True
+        page_number = 1
 
-    next_page_exists = True
-    page_number = 1
+        while next_page_exists:
+            params["page"] = str(page_number)
 
-    while next_page_exists:
-        driver.get(URL.format(page_number))
+            # Get the page with the params
+            driver.get(get_url_with_params(URL, params))
 
-        # Scrape the table rows
-        rows = driver.find_elements(By.TAG_NAME, "tr")[1:]
-        
-        for row in rows:
-            # Scrape the table data
-            journal_data.append(get_row_data(row))
-        
-        # Check if there is a next page
-        next_page_exists = driver.find_elements(By.CLASS_NAME, "pagination_buttons")[1].get_attribute("href") != "#"
-        page_number += 1
+            # Get the table rows
+            rows = driver.find_elements(By.TAG_NAME, "tr")[1:]
+
+            # Iterate over the rows and scrape the table data
+            for row in rows:
+                row_contents = get_row_data(row)
+                row_contents["Subject Area"] = subject_area_name
+                journal_data.append(row_contents)
+
+            # Check if there is a next page
+            next_button = driver.find_elements(
+                By.CLASS_NAME, "pagination_buttons")[0].find_elements(By.TAG_NAME, "a")[1]
+            if next_button.get_attribute("class") == "disabled":
+                next_page_exists = False
+            page_number += 1
+
+        # Save the data to a file
+        print(subject_area_name, len(journal_data)) # DEBUG
+        df = pd.DataFrame(journal_data)
+        df.to_csv("sjr_journal_ranking.csv", mode="a", index=False, header=False)
 
     driver.quit()
-
-    print(len(journal_data))
-
-    # Save the data to a file
-    df = pd.DataFrame(journal_data)
-    df.to_csv("sjr_journal_ranking.csv", index=False)
 
 
 if __name__ == "__main__":
