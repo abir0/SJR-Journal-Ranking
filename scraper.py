@@ -114,8 +114,11 @@ def main():
 
         # Save the data to a file
         print(subject_area_name, len(journal_data)) # DEBUG
+
         df = pd.DataFrame(journal_data)
-        df.to_csv("sjr_journal_ranking.csv", mode="a", index=False, header=False)
+        
+        filename = "sjr_journal_ranking_{}.csv".format(params["year"])
+        df.to_csv(filename, mode="a", index=False, header=False)
 
     driver.quit()
 
