@@ -51,7 +51,7 @@ def get_row_data(row):
     contents["Rank"] = cells[0].text
     contents["Title"] = cells[1].text
     contents["Open Access"] = cells[1].find_elements(By.TAG_NAME, "img") != []
-    contents["URL"] = cells[1].find_element(By.TAG_NAME, "a").get_attribute("href") + "/"
+    contents["URL"] = str(cells[1].find_element(By.TAG_NAME, "a").get_attribute("href")) + "/"
     cell_3 = cells[3].text.split()
     if len(cell_3) > 1:
         contents["SJR index"] = cell_3[0]
@@ -80,6 +80,9 @@ def get_url_with_params(url, params):
 
 def main():
     URL = "https://www.scimagojr.com/journalrank.php"
+
+    # Output filename
+    filename = "sjr_journal_ranking_{}.csv".format(params["year"])
 
     driver = webdriver.Chrome()
 
@@ -112,16 +115,18 @@ def main():
                 next_page_exists = False
             page_number += 1
 
-        print(subject_area_name, len(journal_data)) # DEBUG
+        print(subject_area_name, len(journal_data))
 
         # Save the data to a file
         df = pd.DataFrame(journal_data)
-
-        filename = "sjr_journal_ranking_{}.csv".format(params["year"])
         if subject_area_id == 1100:
             df.to_csv(filename, index=False)
         else:
             df.to_csv(filename, mode="a", index=False, header=False)
+
+        # Free up memory
+        del journal_data, df, rows
+
 
     driver.quit()
 
