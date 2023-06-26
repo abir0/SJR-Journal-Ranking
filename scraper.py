@@ -53,7 +53,7 @@ def get_row_data(row):
     contents["Open Access"] = cells[1].find_elements(By.TAG_NAME, "img") != []
     contents["URL"] = cells[1].find_element(By.TAG_NAME, "a").get_attribute("href") + "/"
     cell_3 = cells[3].text.split()
-    if cell_3 != []:
+    if len(cell_3) > 1:
         contents["SJR index"] = cell_3[0]
         contents["Best Quartile"] = cell_3[1]
         contents["Best Categories"] = parse_best_categories(
