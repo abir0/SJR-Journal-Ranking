@@ -3,6 +3,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
+# URL parameters
+params = {
+    "wos": "true",
+    "type": "j",
+    "year": "2022",
+}
+
+# Subject areas and their ids
 subject_areas = {
     1100: "Agricultural and Biological Sciences",
     1200: "Arts and Humanities",
@@ -33,11 +41,9 @@ subject_areas = {
     3400: "Veterinary",
 }
 
-params = {
-    "wos": "true",
-    "type": "j",
-    "year": "2022",
-}
+
+def get_url_with_params(url, params):
+    return url + "?" + "&".join([key + "=" + value for key, value in params.items()])
 
 
 def parse_best_categories(text):
@@ -74,29 +80,26 @@ def get_row_data(row):
     return contents
 
 
-def get_url_with_params(url, params):
-    return url + "?" + "&".join([key + "=" + value for key, value in params.items()])
-
-
 def main():
     URL = "https://www.scimagojr.com/journalrank.php"
 
     # Output filename
     filename = "sjr_journal_ranking_{}.csv".format(params["year"])
 
+    # Initialize the driver
     driver = webdriver.Chrome()
 
     # Iterate over the subject areas
     for subject_area_id, subject_area_name in subject_areas.items():
         journal_data = []
         params["area"] = str(subject_area_id)
+
         next_page_exists = True
         page_number = 1
 
         while next_page_exists:
-            params["page"] = str(page_number)
-
             # Get the page with the params
+            params["page"] = str(page_number)
             driver.get(get_url_with_params(URL, params))
 
             # Get the table rows
@@ -120,14 +123,16 @@ def main():
         # Save the data to a file
         df = pd.DataFrame(journal_data)
         if subject_area_id == 1100:
+            # For the first subject area, create a new file
             df.to_csv(filename, index=False)
         else:
+            # For the rest, append to the existing file
             df.to_csv(filename, mode="a", index=False, header=False)
 
         # Free up memory
         del journal_data, df
 
-
+    # Close the driver
     driver.quit()
 
 
