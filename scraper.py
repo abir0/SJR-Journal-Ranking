@@ -112,13 +112,16 @@ def main():
                 next_page_exists = False
             page_number += 1
 
-        # Save the data to a file
         print(subject_area_name, len(journal_data)) # DEBUG
 
+        # Save the data to a file
         df = pd.DataFrame(journal_data)
-        
+
         filename = "sjr_journal_ranking_{}.csv".format(params["year"])
-        df.to_csv(filename, mode="a", index=False, header=False)
+        if subject_area_id == 1100:
+            df.to_csv(filename, index=False)
+        else:
+            df.to_csv(filename, mode="a", index=False, header=False)
 
     driver.quit()
 
