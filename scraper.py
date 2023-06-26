@@ -125,7 +125,7 @@ def main():
             df.to_csv(filename, mode="a", index=False, header=False)
 
         # Free up memory
-        del journal_data, df, rows
+        del journal_data, df
 
 
     driver.quit()
