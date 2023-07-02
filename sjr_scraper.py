@@ -84,7 +84,7 @@ def main():
     URL = "https://www.scimagojr.com/journalrank.php"
 
     # Output filename
-    filename = "sjr_journal_ranking_{}.csv".format(params["year"])
+    filename = "data/sjr_journal_ranking_{}.csv".format(params["year"])
 
     # Initialize the driver
     driver = webdriver.Chrome()

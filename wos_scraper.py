@@ -80,7 +80,7 @@ def main():
 
     # Save the data to a file
     df = pd.DataFrame(wos_data)
-    df.to_csv("wos_master_journal_list.csv", index=False)
+    df.to_csv("data/wos_master_journal_list.csv", index=False)
 
     # Close the driver
     driver.quit()
