@@ -2,23 +2,35 @@ import time
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def get_card_data(card):
     contents = {}
-    contents["Title"] = card.find_element(By.TAG_NAME, "mat-card-title").text.strip()
+    try:
+        contents["Title"] = card.find_element(By.TAG_NAME, "mat-card-title").text.strip()
+    except:
+        return None
     card_values = card.find_elements(By.CLASS_NAME, "search-results-value")
-    contents["Publisher"], contents["Address"] = card_values[0].text.strip().split(",", 1)
-    contents["Core Collection"] = card_values[2].text.strip()
+    try:
+        publisher, address = card_values[0].text.strip().split(",", 1)
+    except ValueError:
+        publisher = card_values[0].text.strip()
+        address = ""
+    except IndexError:
+        return None
+    contents["Publisher"] = publisher.strip()
+    contents["Address"] = address.strip()
+    try:
+        contents["Core Collection"] = card_values[2].text.strip()
+    except IndexError:
+        contents["Core Collection"] = "Additional Indexes"
     return contents
 
 
 def main():
     URL = "https://mjl.clarivate.com/search-results"
-
-    filename = "wos_master_journal_list.csv"
-
-    wos_data = []
 
     # Initialize the driver
     driver = webdriver.Chrome()
@@ -26,35 +38,41 @@ def main():
     driver.get(URL)
 
     # Select the options
+    # Sort by: Title (A-Z)
     driver.find_elements(By.TAG_NAME, "mat-form-field")[-2].click()
     time.sleep(3)
     driver.find_elements(By.TAG_NAME, "mat-option")[1].click()
     time.sleep(2)
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(2)
+    # Items per page: 50
     driver.find_elements(By.TAG_NAME, "mat-form-field")[-1].click()
     time.sleep(2)
     driver.find_elements(By.TAG_NAME, "mat-option")[2].click()
     time.sleep(2)
 
+    wos_data = []
     next_page_exists = True
 
     while next_page_exists:
-        time.sleep(2)
-        elements = driver.find_element(
+        # Get the cards from the search results
+        cards = driver.find_element(
             By.TAG_NAME, "app-journal-search-results").find_elements(
             By.TAG_NAME, "mat-card")
-        print(len(elements))
 
-        # Iterate over the rows and scrape the table data
-        for element in elements:
-            wos_data.append(get_card_data(element))
+        # Iterate over the card elements
+        for card in cards:
+            wos_data.append(get_card_data(card))
 
         # Check if there is a next page
         driver.find_element(
             By.CLASS_NAME, "mat-paginator-range-actions").find_elements(
             By.TAG_NAME, "button")[2].click()
-        time.sleep(2)
+
+        paginator_element = EC.presence_of_element_located((
+            By.CLASS_NAME, "mat-paginator-range-actions"))
+        WebDriverWait(driver, 12).until(paginator_element)
+
         if driver.find_element(
                 By.CLASS_NAME, "mat-paginator-range-actions").find_elements(
                 By.TAG_NAME, "button")[2].get_attribute("disabled"):
@@ -62,7 +80,7 @@ def main():
 
     # Save the data to a file
     df = pd.DataFrame(wos_data)
-    df.to_csv(filename, index=False)
+    df.to_csv("wos_master_journal_list.csv", index=False)
 
     # Close the driver
     driver.quit()
