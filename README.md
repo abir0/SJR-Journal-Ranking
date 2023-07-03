@@ -115,7 +115,7 @@ python sjr_scraper.py
 python wos_scraper.py
 ```
 
-1. Run all the cells in the data transformation and analysis notebook in google colab (recommended) or download the notebook and run it in Jupyter.
+1. Run all the cells in the data transformation and analysis notebook in google colab or download the notebook and run it in Jupyter.
 
 2. You will get a file named `combined_journal_ranking_data.csv`. This is the final data.
 
