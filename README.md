@@ -13,13 +13,17 @@
   <p align="center">
     A web scraping and visualization project on SJR and WoS journal indexes.
     <br />
-    <a href=#>View Dashboard</a>
+    <a href="https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard1">View Dashboard</a>
     ·
     <a href="https://github.com/abir0/SJR-Journal-Ranking/issues">Report Bug</a>
     ·
     <a href="https://github.com/abir0/SJR-Journal-Ranking/issues">Request Feature</a>
   </p>
 </div>
+
+<p align="center">
+  <img src="images/dash1.png" width="800" />
+</p>
 
 
 <!-- TABLE OF CONTENTS -->
@@ -38,8 +42,6 @@
 
 ## Problem Statement
 
-[![Dashboard Screen Shot][dashboard-screenshot]](https://)
-
 This project is a data scraping, analysis, and visualization project on Research Journals. The project is divided into two parts: the first part is the web scraping part, which is done using Selenium and Python; the second part is the data analysis and visualization part, which is done using Tableau. The project is done as a part of the 1st capstone project of MasterCourse Data Science Cohort 2 program.
 
 The data is scraped from the following websites:
@@ -49,6 +51,11 @@ The data is scraped from the following websites:
 
 An external dataset is also used in this project:
 * [Scopus](https://www.scopus.com/sources.uri)
+
+<p float="left" align="center">
+  <img src="images/scj.png" width="400" />
+  <img src="images/wos.png" width="400" />
+</p>
 
 From these 3 sources, the following information is scraped:
 
@@ -111,8 +118,8 @@ pip install -r requirements.txt
 
 5. Run the scraper scripts
 ```bash
-python sjr_scraper.py
-python wos_scraper.py
+python src/sjr_scraper.py
+python src/wos_scraper.py
 ```
 
 1. Run all the cells in the data transformation and analysis notebook in google colab or download the notebook and run it in Jupyter.
@@ -128,21 +135,35 @@ The final dashboard can be found [here][dashboard-url].
 
 Here are some of the visualizations from the dashboard:
 
-![image](https://user-images.githubusercontent.com/57366310/139580421-0b6b8b0a-2b0a-4b0e-8b0a-9b0b0b0b0b0b.png)
+### Dashboard 1
 
-![image](https://user-images.githubusercontent.com/57366310/139580438-4b0b0b0b-0b0b-4b0b-8b0b-0b0b0b0b0b0b.png)
+<p align="center">
+  <img src="images/dash1.png" width="800" />
+</p>
 
-![image](https://user-images.githubusercontent.com/57366310/139580450-0b0b0b0b-0b0b-4b0b-8b0b-0b0b0b0b0b0b.png)
+### Dashboard 1
+
+<p align="center">
+  <img src="images/dash2.png" width="800" />
+</p>
+
 
 Key findings from the analysis:
 
-* The top 5 countries with the highest number of journals are: United States, China, United Kingdom, Germany, and India.
-* 
+* From the correlation analysis, it is found that there is a positive correlation between SJR Index and CiteScore, H-index, and Cites per Docs. So these metrics are better indicators than the simple counts of citations, references, and documents.
+* But as the rank of the journal increases, those better metrics fall short.
+* Based on CiteScore, top 5 publishers are: Wiley, Elsevier, Springer, Nature Portfolio, and Routledge. Reflecting their high quality of journals.
+* One interesting observation: based on the number of documents, citations, and references MDPI is among the top 5 publishers. This is because MDPI publishes a lot of journals, but the quality of the journals are not as high as the top 5 publishers which is reflected by the poor CiteScore.
+* Open Access journals have a higher Avg. Cites per Docs than non-Open Access journals.
+* The top 5 journals with the highest SJR index are: Nature Reviews Materials, Nature Reviews Drug Discovery, Nature Reviews Molecular Cell Biology, Nature Reviews Cancer, and Nature Reviews Genetics.
+* The top 5 countries with the highest number of journals are: United States, United Kingdom, Netherlands, Germany, and Switzerland.
+* Top 2 subject areas with the highest H-index are: Medicine and Social Sciences.
 
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
+[dashboard-url]: https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard1
 [colab-shield]: https://colab.research.google.com/assets/colab-badge.svg
 [colab-url]: https://colab.research.google.com/drive/1Fj1eJKqB_Y9wDbKTx16AKk2q7X9hLoOh?usp=sharing
 [contributors-shield]: https://img.shields.io/github/contributors/abir0/SJR-Journal-Ranking.svg
@@ -151,8 +172,6 @@ Key findings from the analysis:
 [license-url]: https://github.com/abir0/SJR-Journal-Ranking/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/abir0
-[dashboard-screenshot]: #
-[dashboard-url]: #
 
 [Selenium]: https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white
 [Pandas]: https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white
