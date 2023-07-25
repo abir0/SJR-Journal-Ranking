@@ -6,7 +6,6 @@
 
 
 <!-- PROJECT INTRO -->
-<br />
 <div align="center">
   <h2 align="center">SJR-Journal-Ranking</h2>
 
