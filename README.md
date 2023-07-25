@@ -14,10 +14,6 @@
     A web scraping and visualization project on SJR and WoS journal indexes.
     <br />
     <a href="https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard1">View Dashboard</a>
-    ·
-    <a href="https://github.com/abir0/SJR-Journal-Ranking/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/abir0/SJR-Journal-Ranking/issues">Request Feature</a>
   </p>
 </div>
 
