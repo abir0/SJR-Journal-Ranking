@@ -7,7 +7,7 @@
 
 <!-- PROJECT INTRO -->
 <div align="center">
-  <h2 align="center">SJR-Journal-Ranking</h2>
+  <h2 align="center">SJR Journal Ranking Analysis</h2>
 
   <p align="center">
     A web scraping and visualization project on SJR and WoS journal indexes.
