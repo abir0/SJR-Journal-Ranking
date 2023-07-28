@@ -56,7 +56,7 @@ From these 3 sources, the following information is scraped:
 
 * Journal Name or Title
 * Subject Area
-* Open Access
+* Open Access Status
 * Publisher
 * Country
 * Coverage Year
@@ -68,6 +68,7 @@ From these 3 sources, the following information is scraped:
 * References Count
 * Citations Count
 * Documents Count
+...
 
 The scraped data is then cleaned and analyzed using Python libraries such as Pandas, Numpy, Matplotlib, and Seaborn. The cleaned data is then visualized using Tableau. The final dashboard can be found [here][dashboard-url].
 
@@ -128,31 +129,30 @@ python src/wos_scraper.py
 
 The final dashboard can be found [here][dashboard-url].
 
-Here are some of the visualizations from the dashboard:
+**Here are the two dashboards:**
 
-### Dashboard 1
+### <a href="https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard1"> Dashboard 1 </a>
 
 <p align="center">
   <img src="images/dash1.png" width="800" />
 </p>
 
-### Dashboard 1
+### <a href="https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard2"> Dashboard 2 </a>
 
 <p align="center">
   <img src="images/dash2.png" width="800" />
 </p>
 
 
-Key findings from the analysis:
+**Key findings from the analysis:**
 
-* From the correlation analysis, it is found that there is a positive correlation between SJR Index and CiteScore, H-index, and Cites per Docs. So these metrics are better indicators than the simple counts of citations, references, and documents.
-* But as the rank of the journal increases, those better metrics fall short.
-* Based on CiteScore, top 5 publishers are: Wiley, Elsevier, Springer, Nature Portfolio, and Routledge. Reflecting their high quality of journals.
-* One interesting observation: based on the number of documents, citations, and references MDPI is among the top 5 publishers. This is because MDPI publishes a lot of journals, but the quality of the journals are not as high as the top 5 publishers which is reflected by the poor CiteScore.
-* Open Access journals have a higher Avg. Cites per Docs than non-Open Access journals.
-* The top 5 journals with the highest SJR index are: Nature Reviews Materials, Nature Reviews Drug Discovery, Nature Reviews Molecular Cell Biology, Nature Reviews Cancer, and Nature Reviews Genetics.
+* From the correlation analysis, it is found that there is a positive correlation between SJR Index and CiteScore, H-index, and Cites per Docs. So, these metrics are better indicators than the simple counts of citations, references, and documents.
+* But for lower-ranking journals, these metrics do not represent much significance due to higher randomness (note that correlation plots get more scattered to the right).
+* Open Access journals have a higher average of Citations per Document than non-Open Access journals.
+* One interesting observation: based on the number of documents, citations, and references MDPI is among the top 5 publishers. This is because MDPI publishes a lot of journals, but the quality of the journals is not as high as the top 5 publishers which is reflected by the poor CiteScore.
+* Based on CiteScore, the top 5 publishers are: Wiley, Elsevier, Springer, Nature Portfolio, and Routledge.
 * The top 5 countries with the highest number of journals are: United States, United Kingdom, Netherlands, Germany, and Switzerland.
-* Top 2 subject areas with the highest H-index are: Medicine and Social Sciences.
+* Medicine and Social Sciences are the top 2 subject areas that have the most number of documents, references, and combined H-index.
 
 
 
