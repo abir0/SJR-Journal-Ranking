@@ -70,7 +70,7 @@ From these 3 sources, the following information is scraped:
 * Documents Count
 ...
 
-The scraped data is then cleaned and analyzed using Python libraries such as Pandas, Numpy, Matplotlib, and Seaborn. The cleaned data is then visualized using Tableau. The final dashboard can be found [here][dashboard-url].
+The scraped data is then cleaned and analyzed using Python libraries such as Pandas, Numpy, Matplotlib, and Seaborn. The cleaned data is then visualized using Tableau. The final dataset can be found in [kaggle][dataset-url].
 
 
 
@@ -159,6 +159,7 @@ The final dashboard can be found [here][dashboard-url].
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [dashboard-url]: https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard1
+[dataset-url]: https://kaggle.com/datasets/235a681e6dc048c6ad80cc06a905dc3b312215637c3699b008461adf0293753c
 [colab-shield]: https://colab.research.google.com/assets/colab-badge.svg
 [colab-url]: https://colab.research.google.com/drive/1Fj1eJKqB_Y9wDbKTx16AKk2q7X9hLoOh?usp=sharing
 [contributors-shield]: https://img.shields.io/github/contributors/abir0/SJR-Journal-Ranking.svg
