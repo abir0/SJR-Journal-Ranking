@@ -80,9 +80,6 @@ Python libraries and softwares used in this project:
 
 * [![Selenium][Selenium]][Selenium-url]
 * [![Pandas][Pandas]][Pandas-url]
-* [![Numpy][Numpy]][Numpy-url]
-* [![Matplotlib][Matplotlib]][Matplotlib-url]
-* [![Seaborn][Seaborn]][Seaborn-url]
 * [![Tableau][Tableau]][Tableau-url]
 
 
@@ -177,7 +174,4 @@ The final dashboard can be found [here][dashboard-url].
 [Tableau]: https://img.shields.io/badge/Tableau-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black
 [Selenium-url]: https://www.selenium.dev/
 [Pandas-url]: https://pandas.pydata.org/
-[Numpy-url]: https://numpy.org/
-[Matplotlib-url]: https://matplotlib.org/
-[Seaborn-url]: https://seaborn.pydata.org/
 [Tableau-url]: https://public.tableau.com/app/discover
