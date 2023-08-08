@@ -158,7 +158,7 @@ The final dashboard can be found [here][dashboard-url].
 [dashboard-url]: https://public.tableau.com/app/profile/abir.hassan/viz/SJRJournalRankingAnalysis/Dashboard1
 [dataset-url]: https://kaggle.com/datasets/235a681e6dc048c6ad80cc06a905dc3b312215637c3699b008461adf0293753c
 [colab-shield]: https://colab.research.google.com/assets/colab-badge.svg
-[colab-url]: https://colab.research.google.com/drive/1Fj1eJKqB_Y9wDbKTx16AKk2q7X9hLoOh?usp=sharing
+[colab-url]: https://colab.research.google.com/drive/1JOD7DR_buhNnyEeWJxfci4bJ1VLvGCh0?usp=sharing
 [contributors-shield]: https://img.shields.io/github/contributors/abir0/SJR-Journal-Ranking.svg
 [contributors-url]: https://github.com/abir0/SJR-Journal-Ranking/graphs/contributors
 [license-shield]: https://img.shields.io/github/license/abir0/SJR-Journal-Ranking.svg
