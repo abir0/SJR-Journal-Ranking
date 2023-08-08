@@ -115,11 +115,11 @@ python src/sjr_scraper.py
 python src/wos_scraper.py
 ```
 
-6. Run all the cells in the data transformation and analysis notebook in google colab or download the notebook and run it in Jupyter.
+1. Run all the cells in the data transformation notebook in google colab or download the [notebook](./src/notebooks/journal_data_transformation.ipynb) and run it in Jupyter.
 
-7. You will get a file named `combined_journal_ranking_data.csv`. This is the final data.
+2. You will get a file named `combined_journal_ranking_data.csv`. This is the final data.
 
-8. Open the `SJR Journal Ranking Analysis.twb` file in Tableau (or open the public tableau [link][dashboard-url]) and connect the `combined_journal_ranking_data.csv` file to the workbook.
+3. Open the `SJR Journal Ranking Analysis.twb` file in Tableau (or open the public tableau [link][dashboard-url]) and connect the `combined_journal_ranking_data.csv` file to the workbook.
 
 
 ## Results
